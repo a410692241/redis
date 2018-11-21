@@ -44,6 +44,7 @@ public class RedisKeyValue {
 
     @Test
     public void redisCtrl() {
+//        jedis.auth("root");
         jedis.set("money", "1000");
         jedis.close();
     }

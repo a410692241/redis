@@ -54,7 +54,7 @@ public class RedisZList {
 
 
     /**
-     * 获取数量
+     * 获取到数量
      */
     @Test
     public void zCard() {

@@ -1,4 +1,11 @@
 spring:
   redis:
     host: 192.168.9.128
-    
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/test?serverTimezone=GMT
+    username: root
+    password: root
+mybatis:
+  mapper-locations: classpath:com/wei/redis/mapper/*.xml
+  type-aliases-package: classpath:com.wei.redis.bo

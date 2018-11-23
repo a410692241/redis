@@ -15,7 +15,7 @@ import java.net.URLDecoder;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class UserLua {
+public class RedisLua {
     @Autowired
     private RedisTemplate redisTemplate;
 

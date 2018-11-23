@@ -1,0 +1,1 @@
+redis.call('set',KEY[1],ARGV[1])

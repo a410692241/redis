@@ -130,5 +130,9 @@ public class RedisHash {
 
 
 
+    @Test
+    public void set() {
+        
+    }
 
 }

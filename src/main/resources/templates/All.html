@@ -11,12 +11,20 @@
 </head>
 
 <body>
-    <form action="/userRedis/saveUser" method="post">
-        姓名<input type="text" name="name">
-        年龄<input type="text" name="age">
-        性别<input type="text" name="sex">
-        <input type="submit" value="提交">
-    </form>
+   <table>
+       <tr>
+           <th>id</th>
+           <th>姓名</th>
+           <th>年龄</th>
+       </tr>
+
+       <tr  th:each="user,userStat : ${userList}">
+           <td th:text="${user.id}"></td>
+           <td th:text="${user.name}"></td>
+           <td th:text="${user.age}"></td>
+       </tr>
+   </table>
+    <a href="/userRedis/index">新增</a>
 </body>
 
 </html>

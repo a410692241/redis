@@ -3,6 +3,7 @@ package com.wei.redis.controller;
 import com.wei.redis.bo.User;
 import com.wei.redis.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
@@ -10,7 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 最基础的redis实现方法和springboot下的redis缓存使用方法
+ */
 @Controller
+@RequestMapping("/user")
 public class UserController {
     @Autowired
     private RedisTemplate redisTemplate;
@@ -37,8 +42,9 @@ public class UserController {
         String key = "user" + id;
         User user = (User) redisTemplate.opsForValue().get(key);
 
-        if (user != null) {
+        if (user == null) {
             user = userDao.selectByPrimaryKey(id);
+            System.out.println("查询了数据库");
 
             //重建该缓存
             //尝试获取分布式锁
@@ -79,6 +85,7 @@ public class UserController {
             result = userDao.updateByPrimaryKey(user);
         } else {
             result = userDao.insert(user);
+
         }
         redisTemplate.opsForValue().set("user" + user.getId(), user);
         redisTemplate.expire("user" + user.getId(), 5, TimeUnit.MINUTES);

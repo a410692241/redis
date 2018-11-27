@@ -10,7 +10,6 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import javax.lang.model.element.VariableElement;
 import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {

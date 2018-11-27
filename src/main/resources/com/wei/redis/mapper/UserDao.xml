@@ -5,6 +5,8 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -65,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, `name`, age
+    id, `name`, age, username, `password`
   </sql>
   <select id="selectByExample" parameterType="com.wei.redis.bo.UserExample" resultMap="BaseResultMap">
     select
@@ -106,8 +108,10 @@
     </if>
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.wei.redis.bo.User" useGeneratedKeys="true">
-    insert into user (`name`, age)
-    values (#{name,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER})
+    insert into user (`name`, age, username, 
+      `password`)
+    values (#{name,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.wei.redis.bo.User" useGeneratedKeys="true">
     insert into user
@@ -118,6 +122,12 @@
       <if test="age != null">
         age,
       </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        `password`,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="name != null">
@@ -125,6 +135,12 @@
       </if>
       <if test="age != null">
         #{age,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -146,6 +162,12 @@
       <if test="record.age != null">
         age = #{record.age,jdbcType=INTEGER},
       </if>
+      <if test="record.username != null">
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null">
+        `password` = #{record.password,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -155,7 +177,9 @@
     update user
     set id = #{record.id,jdbcType=INTEGER},
       `name` = #{record.name,jdbcType=VARCHAR},
-      age = #{record.age,jdbcType=INTEGER}
+      age = #{record.age,jdbcType=INTEGER},
+      username = #{record.username,jdbcType=VARCHAR},
+      `password` = #{record.password,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -169,13 +193,21 @@
       <if test="age != null">
         age = #{age,jdbcType=INTEGER},
       </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        `password` = #{password,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.wei.redis.bo.User">
     update user
     set `name` = #{name,jdbcType=VARCHAR},
-      age = #{age,jdbcType=INTEGER}
+      age = #{age,jdbcType=INTEGER},
+      username = #{username,jdbcType=VARCHAR},
+      `password` = #{password,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

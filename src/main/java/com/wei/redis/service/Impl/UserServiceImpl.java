@@ -10,6 +10,7 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import javax.lang.model.element.VariableElement;
 import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
@@ -19,30 +20,28 @@ public class UserServiceImpl implements UserService {
     public long countByExample(UserExample example) {
         return userDao.countByExample(example);
     }
-
     @Override
     public int deleteByExample(UserExample example) {
         return userDao.deleteByExample(example);
     }
 
-    @CacheEvict(key = "'user'+#id", value = "cache")
+    @CacheEvict(key = "'user'", value = "cache")
     @Override
     public int deleteByPrimaryKey(Integer id) {
         System.out.println("查询了数据库");
         return userDao.deleteByPrimaryKey(id);
     }
 
-
     /**更新一定要删除集合缓存,同时更新该条数据
-     * @param record
+     * @param user
      * @return
      */
-    @CachePut(key = "'user'+#id",value = "cache")
+    @CachePut(key = "'user'+#p0.id",value = "cache")
     @CacheEvict(key = "'user'", value = "cache")
     @Override
-    public int insert(User record) {
+    public int insert(User user) {
         System.out.println("查询了数据库");
-        return userDao.insert(record);
+        return userDao.insert(user);
     }
 
     @Override
@@ -107,5 +106,17 @@ public class UserServiceImpl implements UserService {
     public int updateByPrimaryKey(User record) {
         System.out.println("查询了数据库");
         return userDao.updateByPrimaryKeySelective(record);
+    }
+
+    @Override
+    public Object login(User user) {
+        UserExample userExample = new UserExample();
+        UserExample.Criteria criteria = userExample.createCriteria();
+        criteria.andUsernameEqualTo("");
+        User userRS = userDao.selectByExample(userExample).stream().findFirst().orElse(null);
+        if (userRS.getUsername().equals(user.getPassword())) {
+            return true;
+        }
+        return false;
     }
 }

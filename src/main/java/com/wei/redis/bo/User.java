@@ -13,6 +13,10 @@ public class User implements Serializable {
 
     private Integer age;
 
+    private String username;
+
+    private String password;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -39,6 +43,22 @@ public class User implements Serializable {
         this.age = age;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -53,7 +73,9 @@ public class User implements Serializable {
         User other = (User) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-            && (this.getAge() == null ? other.getAge() == null : this.getAge().equals(other.getAge()));
+            && (this.getAge() == null ? other.getAge() == null : this.getAge().equals(other.getAge()))
+            && (this.getUsername() == null ? other.getUsername() == null : this.getUsername().equals(other.getUsername()))
+            && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()));
     }
 
     @Override
@@ -63,6 +85,8 @@ public class User implements Serializable {
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         result = prime * result + ((getAge() == null) ? 0 : getAge().hashCode());
+        result = prime * result + ((getUsername() == null) ? 0 : getUsername().hashCode());
+        result = prime * result + ((getPassword() == null) ? 0 : getPassword().hashCode());
         return result;
     }
 
@@ -75,6 +99,8 @@ public class User implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", name=").append(name);
         sb.append(", age=").append(age);
+        sb.append(", username=").append(username);
+        sb.append(", password=").append(password);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

@@ -85,4 +85,15 @@ public class UserRedisController {
     public Object onless100(int id) {
         return userService.unless100(id);
     }
+
+
+    @RequestMapping("/lgin")
+    public Object lgin(Model model) {
+        return "login";
+    }
+    @RequestMapping("/login")
+    @ResponseBody
+    public Object login(User user) {
+        return userService.login(user);
+    }
 }

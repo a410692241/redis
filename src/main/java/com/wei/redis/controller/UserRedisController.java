@@ -2,12 +2,8 @@ package com.wei.redis.controller;
 
 import com.wei.redis.bo.User;
 import com.wei.redis.bo.UserExample;
-import com.wei.redis.dao.UserDao;
 import com.wei.redis.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
